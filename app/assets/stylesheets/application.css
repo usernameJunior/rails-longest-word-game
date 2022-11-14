@@ -13,12 +13,40 @@
  *= require_tree .
  *= require_self
  */
+ body {
+  font-family: sans-serif;
+ }
+ a {
+  display: inline-block;
+  margin-top: 10px;
+ }
  form {
   margin-top: 2em;
  }
+ label {
+  display: block;
+ }
+ input {
+  display: inline-block;
+  padding: 0.5em;
+ }
+ input[type=text] {
+  width: 30%;
+  border: 1px solid lightgrey;
+ }
+ input[type=submit] {
+  margin: 0;
+  background-color: white;
+  border: 1px solid grey;
+ }
+ input[type=submit]:hover {
+  cursor: pointer;
+  background-color: lightgrey;
+  transition: background-color 0.3s ease;
+ }
 .letter {
   display: inline-block;
-  background-color: rgb(98, 98, 219);
+  background-color: rgb(96, 165, 230);
   color: white;
   text-align: center;
   font-weight: bold;
@@ -28,4 +56,5 @@
   margin: 10px;
   box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
   border-radius: 3px;
+  border: 2px solid rgb(102, 147, 225)
 }

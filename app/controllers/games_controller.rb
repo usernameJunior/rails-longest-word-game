@@ -1,5 +1,3 @@
-require "json"
-require "open-uri"
 class GamesController < ApplicationController
   def index() end
 
@@ -9,14 +7,26 @@ class GamesController < ApplicationController
   end
 
   def score
-    @result = if params[:word].chars.all? { |letter| params[:word].count(letter) <= params[:letters].split.count(letter) }
-                word_exist? ? 'Right' : 'Not a valid english word'
-              else
-                'Not in the grid'
-              end
+    @result = checkword
   end
 
   private
+
+  def checkword
+    if word_exist? && word_in_grid?
+      "Congratulations ! #{params[:word].upcase} is a valid english word!"
+    elsif !word_exist?
+      "Sorry but #{params[:word].upcase} does not seem to be a valid english word."
+    else
+      "Sorry but #{params[:word].upcase} can't be built out of #{params[:letters].upcase.split.join(', ')}"
+    end
+  end
+
+  def word_in_grid?
+    params[:word].downcase.chars.all? do |letter|
+      params[:word].count(letter) <= params[:letters].split.count(letter)
+    end
+  end
 
   def word_exist?
     word_serialized = URI.open("https://wagon-dictionary.herokuapp.com/#{params[:word]}").read
